@@ -31,7 +31,10 @@ function init() {
   if (ready) return;
   ready = true;
   // Play alongside other audio, and don't grab the "now playing" slot.
-  setAudioModeAsync({ playsInSilentMode: false, shouldPlayInBackground: false, interruptionMode: 'mixWithOthers' }).catch(() => {});
+  // playsInSilentMode MUST be true: this is a children's app, and kids' phones are silenced
+  // as often as not — sound effects should still play (browsers already ignore the ringer,
+  // which is why this bug only showed up once tested on a real device).
+  setAudioModeAsync({ playsInSilentMode: true, shouldPlayInBackground: false, interruptionMode: 'mixWithOthers' }).catch(() => {});
 }
 
 function get(name: Sfx): AudioPlayer | null {
