@@ -13,7 +13,7 @@ import { Drift, Enter, Highlight, Pop, PulseRing, Squash, Stamp, useMotionOK, Wo
 import { Rocket } from '../../components/scenery';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { ChunkyButton, Eyebrow, GameBody, Purse, Tap, TopBar } from '../../components/ui';
+import { ChunkyButton, Eyebrow, GameBody, MuteButton, Purse, Tap, TopBar } from '../../components/ui';
 import { CharacterId, Grade } from '../../data/world';
 import { Intent } from '../../learning/engine';
 import { useSignalTracker, useStuckDetector } from '../../learning/session';
@@ -256,7 +256,7 @@ export default function RocketBoss({ navigation }: RootScreen<'Boss'>) {
           </Drift>
         ))}
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 20 }}>
-          <TopBar dark back="← Map" title="BOSS · ROCKET LAUNCH" right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
+          <TopBar dark back="← Map" title="BOSS · ROCKET LAUNCH" right={<><Purse /><MuteButton dark={true} /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
           <View style={{ flexDirection: 'row', gap: 6, marginTop: 12 }}>
             {STAGES.map((s, i) => <View key={s} style={{ flex: 1, height: 9, borderRadius: 5, backgroundColor: i < stage || (i === stage && (stageDone || launched)) ? C.sun : i === stage ? 'rgba(245,181,60,.45)' : 'rgba(253,245,232,.18)' }} />)}
           </View>

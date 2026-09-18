@@ -13,7 +13,7 @@ import { DropProvider, DropZone, Draggable } from '../../components/dragdrop';
 import { Bob, Drift, Enter, Highlight, Pop, Wobble } from '../../components/motion';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { AutoScale, ChunkyButton, Eyebrow, GameBody, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
+import { AutoScale, ChunkyButton, Eyebrow, GameBody, MuteButton, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
 import { CharacterId } from '../../data/world';
 import { HINT_LADDER, HintKind, Intent, nextRepresentation } from '../../learning/engine';
 import { genCafeService, lastKindOf, newSeed, pickDifficulty, tagKind } from '../../learning/generator';
@@ -561,7 +561,7 @@ function CafeRound({ navigation, seed, twin, onPlayAnother, onTwin }: RoundProps
       <View style={{ flex: 1, backgroundColor: BG }}>
         <GameBody>
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 20 }}>
-          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
+          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><MuteButton /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
           {/* ─── order ticket ─── */}
           <Enter delay={80}>
             <Highlight active={highlight.includes('ticket')} color={C.violet}>

@@ -8,7 +8,7 @@ import { Buddy, Numi } from '../../components/characters';
 import { Burst, Stars } from '../../components/effects';
 import { Bob, Drift, Enter, Pop, PulseRing, Shimmer, Spin, Sway, Wobble } from '../../components/motion';
 import { Bridge, CafeHouse, Cloud, Duck, Flock, GardenPatch, GroundDetail, House, Lamp, MarketStall, Mountain, PicnicSpot, River, Rocket, Sign, SpaceStationArt, Train, Tree, Windmill } from '../../components/scenery';
-import { ProgressBar, Tap } from '../../components/ui';
+import { MuteButton, ProgressBar, Tap } from '../../components/ui';
 import { BreakReminder, FirstTimeTip, SeasonComplete } from '../../components/guidance';
 import { SpeakButton } from '../../components/Storyteller';
 import { startAmbience, stopAmbience } from '../../services/sfx';
@@ -348,9 +348,10 @@ export default function WorldMap() {
           <View style={[{ backgroundColor: 'rgba(253,245,232,.96)', borderRadius: 22, padding: 11, paddingHorizontal: 14 }, softShadow(0.14, 5)]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Text style={[T.h3, { fontSize: 18 }]}>Numbershire</Text>
-              <View style={{ flexDirection: 'row', gap: 6 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                 <View style={{ backgroundColor: C.sun, borderRadius: 13, paddingHorizontal: 9, paddingVertical: 4 }}><Text style={{ fontFamily: F.bodyHeavy, fontSize: 12, color: C.ink }}>🪙 {coins}</Text></View>
                 <View style={{ backgroundColor: C.sandLine, borderRadius: 13, paddingHorizontal: 9, paddingVertical: 4 }}><Text style={{ fontFamily: F.bodyHeavy, fontSize: 12, color: C.ink }}>⭐ {stars}</Text></View>
+                <MuteButton />
               </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 7 }}>

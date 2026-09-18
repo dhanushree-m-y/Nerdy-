@@ -10,7 +10,7 @@ import { DropProvider, DropZone, Draggable } from '../../components/dragdrop';
 import { Bob, Enter, FloatUp, Highlight, Pop, Squash, Wobble } from '../../components/motion';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { AutoScale, ChunkyButton, Eyebrow, GameBody, ProgressBar, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
+import { AutoScale, ChunkyButton, Eyebrow, GameBody, MuteButton, ProgressBar, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
 import { HINT_LADDER, HintKind, Intent, nextRepresentation } from '../../learning/engine';
 import { genMarket, lastKindOf, newSeed, pickDifficulty, tagKind } from '../../learning/generator';
 import { useSignalTracker, useStuckDetector } from '../../learning/session';
@@ -548,7 +548,7 @@ function MarketRound({ navigation, seed, onPlayAnother }: RoundProps) {
       <View style={{ flex: 1, backgroundColor: C.cream }}>
         <GameBody>
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 16 }}>
-          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
+          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><MuteButton /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
 
           {/* ─── goal card ─── */}
           <Enter delay={80}>

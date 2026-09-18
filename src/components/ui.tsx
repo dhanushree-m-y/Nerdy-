@@ -300,6 +300,30 @@ export function Purse({ dark }: { dark?: boolean }) {
   );
 }
 
+/**
+ * One-tap mute: silences sound effects, background ambience AND Numi's voice together.
+ * Lives right in every game's top bar — a grown-up shouldn't have to dig into the
+ * Explorer settings page mid-mission just to make the app go quiet.
+ */
+export function MuteButton({ dark }: { dark?: boolean }) {
+  const settings = useGame(s => s.settings);
+  const updateSettings = useGame(s => s.updateSettings);
+  const muted = !settings.sound && !settings.voice;
+  const toggle = () => {
+    haptic.tap();
+    updateSettings(muted ? { sound: true, ambience: true, voice: true } : { sound: false, ambience: false, voice: false });
+  };
+  return (
+    <Tap
+      onPress={toggle}
+      a11y={muted ? 'Unmute sound and voice' : 'Mute sound and voice'}
+      style={{ width: 38, height: 38, borderRadius: 13, alignItems: 'center', justifyContent: 'center', backgroundColor: dark ? 'rgba(253,245,232,.14)' : C.sandLine }}
+    >
+      <Text style={{ fontSize: 16 }}>{muted ? '🔇' : '🔊'}</Text>
+    </Tap>
+  );
+}
+
 export const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center' },
   center: { alignItems: 'center', justifyContent: 'center' },

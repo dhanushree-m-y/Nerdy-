@@ -18,18 +18,26 @@ const CHILD_VOICE = /\b(ana|ivy|justin|kevin|junior|child|kid)\b/i;
 /** Soft, warm voices that sound young once lifted. Harsh or announcer-style voices are last resort. */
 const SOFT = /(jenny|aria|ava|ana|emma|michelle|libby|sonia|samantha|google us english|allison|zira|female)/i;
 
-// pitch = lift applied to an adult voice; kidPitch = the gentler lift for a real child voice.
-type Profile = { pitch: number; kidPitch: number; rate: number; prefer: RegExp };
+// pitch = lift applied to a KNOWN, named adult voice (we can be confident of its register);
+// kidPitch = the gentle lift for a real child voice; safePitch = used for an UNIDENTIFIED
+// device voice, where we have no idea what register it already speaks in.
+//
+// Most real Android/iOS phones report generic engine names like "en-us-x-iom-local" that
+// match neither CHILD_VOICE nor SOFT — pushing an unknown voice up by the full "adult" lift
+// (previously ~1.3x) is how this ended up sounding like a chipmunk on real devices. An
+// unidentified voice now only gets a small, safe nudge.
+type Profile = { pitch: number; kidPitch: number; safePitch: number; rate: number; prefer: RegExp };
 const PROFILES: Record<Speaker, Profile> = {
-  narrator: { pitch: 1.28, kidPitch: 1.04, rate: 0.86, prefer: SOFT },
-  numi: { pitch: 1.36, kidPitch: 1.1, rate: 0.88, prefer: SOFT },
-  nia: { pitch: 1.34, kidPitch: 1.12, rate: 0.9, prefer: /(ana|ivy|jenny|aria|ava|female)/i },
-  milo: { pitch: 1.2, kidPitch: 1.0, rate: 0.88, prefer: /(justin|kevin|guy|ryan)/i },
-  pip: { pitch: 1.26, kidPitch: 1.04, rate: 0.92, prefer: /(justin|kevin|andrew)/i },
-  zuri: { pitch: 1.32, kidPitch: 1.08, rate: 0.9, prefer: /(ivy|ana|emma|michelle|female)/i },
-  nova: { pitch: 1.24, kidPitch: 1.0, rate: 0.88, prefer: /(ana|ava|aria|sonia|female)/i },
+  narrator: { pitch: 1.16, kidPitch: 1.04, safePitch: 1.03, rate: 0.86, prefer: SOFT },
+  numi: { pitch: 1.2, kidPitch: 1.1, safePitch: 1.06, rate: 0.88, prefer: SOFT },
+  nia: { pitch: 1.18, kidPitch: 1.12, safePitch: 1.05, rate: 0.9, prefer: /(ana|ivy|jenny|aria|ava|female)/i },
+  milo: { pitch: 1.1, kidPitch: 1.0, safePitch: 0.98, rate: 0.88, prefer: /(justin|kevin|guy|ryan)/i },
+  pip: { pitch: 1.14, kidPitch: 1.04, safePitch: 1.0, rate: 0.92, prefer: /(justin|kevin|andrew)/i },
+  zuri: { pitch: 1.16, kidPitch: 1.08, safePitch: 1.02, rate: 0.9, prefer: /(ivy|ana|emma|michelle|female)/i },
+  nova: { pitch: 1.12, kidPitch: 1.0, safePitch: 1.0, rate: 0.88, prefer: /(ana|ava|aria|sonia|female)/i },
 };
 let childPicked: Partial<Record<Speaker, boolean>> = {};
+let softPicked: Partial<Record<Speaker, boolean>> = {};
 
 let voiceCache: Partial<Record<Speaker, string | undefined>> | null = null;
 let loading: Promise<void> | null = null;
@@ -60,6 +68,7 @@ async function loadVoices() {
           ?? ranked[0];
         cache[sp] = pick?.identifier;
         childPicked[sp] = !!pick && CHILD_VOICE.test(pick.name);
+        softPicked[sp] = !!pick && SOFT.test(pick.name);
         // Only spread speakers across voices when the device has good ones. With just the old
         // system voices, every character shares the softest one at their own pitch — a gruff
         // adult voice lifted an octave still sounds harsh to a child.
@@ -76,9 +85,10 @@ loadVoices();
 export function voiceFor(sp: Speaker) {
   const p = PROFILES[sp];
   const playful = useGame.getState().settings.voiceStyle === 'playful';
+  const base = childPicked[sp] ? p.kidPitch : softPicked[sp] ? p.pitch : p.safePitch;
   return {
     voice: voiceCache?.[sp],
-    pitch: Math.min(1.5, (childPicked[sp] ? p.kidPitch : p.pitch) + (playful ? 0.08 : 0)),
+    pitch: Math.min(1.3, base + (playful ? 0.06 : 0)),
     rate: p.rate + (playful ? 0.05 : 0),
   };
 }

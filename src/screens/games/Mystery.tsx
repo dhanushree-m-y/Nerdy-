@@ -11,7 +11,7 @@ import { DropProvider, DropZone, Draggable } from '../../components/dragdrop';
 import { Bob, Enter, Highlight, Pop, Shimmer, Squash, Stamp, Sway, Wobble } from '../../components/motion';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { ChunkyButton, Eyebrow, GameBody, Purse, Tap, TopBar } from '../../components/ui';
+import { ChunkyButton, Eyebrow, GameBody, MuteButton, Purse, Tap, TopBar } from '../../components/ui';
 import { HINT_LADDER, HintKind, Intent, nextRepresentation } from '../../learning/engine';
 import { genMystery, newSeed, pickDifficulty } from '../../learning/generator';
 import { useSignalTracker, useStuckDetector } from '../../learning/session';
@@ -174,7 +174,7 @@ function MysteryRound({ navigation, seed, onPlayAnother }: RoundProps) {
         <GameBody>
         <Stars count={10} />
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 20 }}>
-          <TopBar dark back="← Map" title={`CASE FILE #${TOTAL}`} right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
+          <TopBar dark back="← Map" title={`CASE FILE #${TOTAL}`} right={<><Purse /><MuteButton dark={true} /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
         </View>
 
         {/* kitchen scene */}

@@ -9,7 +9,7 @@ import { DropProvider, DropZone, Draggable } from '../../components/dragdrop';
 import { Bob, Drift, Enter, FloatUp, Highlight, Pop, Squash, Sway, Wobble } from '../../components/motion';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { AutoScale, ChunkyButton, Eyebrow, GameBody, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
+import { AutoScale, ChunkyButton, Eyebrow, GameBody, MuteButton, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
 import { HINT_LADDER, HintKind, Intent, nextRepresentation } from '../../learning/engine';
 import { genFarm, lastKindOf, newSeed, pickDifficulty, tagKind } from '../../learning/generator';
 import { ReplayFrame, useSignalTracker, useStuckDetector } from '../../learning/session';
@@ -420,7 +420,7 @@ function FarmRound({ navigation, seed, twin, onPlayAnother, onTwin }: RoundProps
       <View style={{ flex: 1, backgroundColor: BG }}>
         <GameBody>
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 20 }}>
-          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
+          <TopBar back="← Map" onBack={() => navigation.goBack()} right={<><Purse /><MuteButton /><AskNumiButton onPress={() => { trk.asked(true); setVoiceOpen(true); }} glowing={trk.wrongStreak > 0 && !voiceOpen} /></>} />
           <Enter delay={80}>
             <View style={[{ marginTop: 10, backgroundColor: C.paper, borderRadius: 22, padding: 12, flexDirection: 'row', alignItems: 'center', gap: 12 }, softShadow(0.1, 4)]}>
               <View style={{ width: 50, height: 50, borderRadius: 15, backgroundColor: C.teal, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 4, borderBottomColor: C.tealDeep }}>

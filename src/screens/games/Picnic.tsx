@@ -10,7 +10,7 @@ import { Bob, Enter, Highlight, Pop, Squash, Wobble } from '../../components/mot
 import { Mountain } from '../../components/scenery';
 import { Scratchpad } from '../../components/Scratchpad';
 import { StuckChoice, StuckSheet } from '../../components/sheets';
-import { AutoScale, ChunkyButton, Eyebrow, GameBody, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
+import { AutoScale, ChunkyButton, Eyebrow, GameBody, MuteButton, Purse, Tap, TopBar, useFitScale } from '../../components/ui';
 import { CharacterId } from '../../data/world';
 import { HINT_LADDER, HintKind, Intent, nextRepresentation } from '../../learning/engine';
 import { genPicnic, lastKindOf, newSeed, pickDifficulty, tagKind } from '../../learning/generator';
@@ -234,7 +234,7 @@ function PicnicRound({ navigation, seed, twin, onPlayAnother, onTwin }: RoundPro
         <GameBody>
         <Mountain w={320} h={210} color={C.hill} style={{ position: 'absolute', top: ins.top + 60, right: -80 }} />
         <View style={{ paddingTop: ins.top + 8, paddingHorizontal: 20 }}>
-          <TopBar back="← Map" right={<><Purse /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
+          <TopBar back="← Map" right={<><Purse /><MuteButton /><AskNumiButton onPress={() => { trk.asked(true); setVoice(true); }} glowing={trk.wrongStreak > 0 && !voice} /></>} />
           <Enter delay={60}>
             <View style={[{ marginTop: 10, backgroundColor: 'rgba(253,245,232,.96)', borderRadius: 22, padding: 12, flexDirection: 'row', alignItems: 'center', gap: 12 }, softShadow(0.1, 4)]}>
               <Highlight active={highlight.includes('bowl')} style={{ width: 54, height: 50, borderRadius: 16, backgroundColor: C.coral, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 4, borderBottomColor: C.coralDeep }}>
