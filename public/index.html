@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>NUMI – The World Runs on Math</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        overflow: hidden;
+        margin: 0;
+        background: #fdf5e8;
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+    <style>
+      /* The boot card. It is plain HTML so it paints before the bundle arrives,
+         and index.ts removes it as soon as React takes over the root. */
+      #numi-boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: #fdf5e8;
+        font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+        z-index: 9999;
+        transition: opacity 0.35s ease;
+      }
+      #numi-boot.numi-boot-out { opacity: 0; pointer-events: none; }
+      .numi-tiles { display: flex; gap: 8px; }
+      .numi-tile {
+        width: 58px;
+        height: 67px;
+        border-radius: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #fdf5e8;
+        animation: numi-drop 0.6s cubic-bezier(0.2, 1.3, 0.5, 1) backwards, numi-bob 1.3s ease-in-out infinite;
+      }
+      .numi-tile:nth-child(1) { background: #2fa08a; box-shadow: 0 7px 0 #1f7a68; transform: rotate(-4deg); animation-delay: 0s, 0.6s; }
+      .numi-tile:nth-child(2) { background: #f5b53c; box-shadow: 0 7px 0 #d2902a; color: #3a3226; transform: rotate(3deg); animation-delay: 0.12s, 0.72s; }
+      .numi-tile:nth-child(3) { background: #ef7a63; box-shadow: 0 7px 0 #c9553f; transform: rotate(-2deg); animation-delay: 0.24s, 0.84s; }
+      .numi-tile:nth-child(4) { background: #8f7bd4; box-shadow: 0 7px 0 #6a58ab; transform: rotate(4deg); animation-delay: 0.36s, 0.96s; }
+      @keyframes numi-drop { from { opacity: 0; transform: translateY(-110px) rotate(-22deg); } }
+      @keyframes numi-bob { 50% { margin-top: -8px; } }
+      .numi-title { font-size: 21px; font-weight: 800; color: #1f7a68; margin-top: 8px; }
+      .numi-kicker { font-size: 11px; letter-spacing: 2.4px; color: #1f7a68; opacity: 0.65; }
+      .numi-line { font-size: 13px; color: #3a3226; opacity: 0.6; margin-top: 10px; }
+      .numi-dots { display: flex; gap: 7px; }
+      .numi-dot { width: 9px; height: 9px; border-radius: 5px; background: #1f7a68; animation: numi-pulse 1.2s ease-in-out infinite; }
+      .numi-dot:nth-child(2) { animation-delay: 0.18s; }
+      .numi-dot:nth-child(3) { animation-delay: 0.36s; }
+      @keyframes numi-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.75); } 50% { opacity: 1; transform: scale(1.1); } }
+      @media (prefers-reduced-motion: reduce) {
+        .numi-tile, .numi-dot { animation: none; }
+      }
+    </style>
+  <meta name="theme-color" content="#2fa08a">
+</head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="numi-boot">
+      <div class="numi-tiles">
+        <div class="numi-tile">N</div>
+        <div class="numi-tile">U</div>
+        <div class="numi-tile">M</div>
+        <div class="numi-tile">I</div>
+      </div>
+      <div class="numi-title">The World Runs on Math</div>
+      <div class="numi-kicker">A NUMBERSHIRE ADVENTURE</div>
+      <div class="numi-line">Waking up Numbershire…</div>
+      <div class="numi-dots"><i class="numi-dot"></i><i class="numi-dot"></i><i class="numi-dot"></i></div>
+    </div>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  </body>
+</html>

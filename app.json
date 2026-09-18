@@ -1,17 +1,25 @@
 {
   "expo": {
-    "name": "numi-app",
-    "slug": "numi-app",
+    "name": "NUMI",
+    "slug": "numi-the-world-runs-on-math",
+    "description": "NUMI – The World Runs on Math. A K–5 math adventure where learning repairs the world.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#fdf5e8",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.numi.worldrunsonmath",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "NUMI listens only when you tap the microphone, so you can ask for help or explain your thinking.",
+        "NSSpeechRecognitionUsageDescription": "NUMI turns what you say into words so it can help with the current puzzle."
+      }
     },
     "android": {
+      "package": "com.numi.worldrunsonmath",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#2fa08a",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -19,7 +27,26 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "name": "NUMI – The World Runs on Math",
+      "themeColor": "#2fa08a",
+      "backgroundColor": "#fdf5e8"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-audio",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#fdf5e8",
+          "dark": {
+            "backgroundColor": "#fdf5e8"
+          }
+        }
+      ]
+    ]
   }
 }
